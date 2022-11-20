@@ -16,93 +16,107 @@ class _LoginPageState extends State<LoginPage> {
   final passwordEC = TextEditingController();
 
   @override
+  void dispose() {
+    emailEC.dispose();
+    passwordEC.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Let\'s sign you in!',
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
-                    ),
-                  ),
-                  const Text(
-                    'Welcome back!',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Text(
-                    'You\'ve been missed!',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Stack(
-                    children: [
-                      Center(
-                        child: Image.asset('assets/images/7.png',
-                            height: MediaQuery.of(context).size.height * .501,
-                            fit: BoxFit.cover),
-                      ),
-                      Column(
+              child: SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * .02),
+                    //First column
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .55,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(
-                            height: 312,
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Let\'s sign you in!',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
                           ),
+                          const Text(
+                            'Welcome back! \n You\'ve been missed!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black54,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .02),
+                          Image.asset(
+                            alignment: Alignment.center,
+                            'assets/images/7.png',
+                            height: MediaQuery.of(context).size.height * .4,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
+                    ),
+                    //Second column
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .38,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 8),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: CustomTextField(
                                 textEditingController: emailEC,
                                 hintText: 'Username'),
                           ),
+                          const SizedBox(height: 10),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0, vertical: 8),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: CustomPasswordTextField(
                                 textEditingController: passwordEC,
                                 hintText: 'Password'),
                           ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .01),
                           CustomButton(
                             text: 'Login',
                             onPressed: () {},
                           ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .01),
                           InkWell(
                             onTap: () {},
                             child: const Text(
-                              'Create account',
+                              'Create account \n or',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black87,
                                 letterSpacing: -0.5,
                               ),
                             ),
                           ),
-                          const Text(
-                            'or',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              letterSpacing: -0.5,
-                            ),
-                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * .01),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -118,12 +132,12 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Colors.blue.shade800,
                               ),
                             ],
-                          )
+                          ),
                         ],
-                      )
-                    ],
-                  ),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
