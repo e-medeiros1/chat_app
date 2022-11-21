@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
   final String hintText;
   final TextEditingController textEditingController;
+  final String? Function(String?)? validator;
 
-  const CustomTextField(
-      {required this.textEditingController, required this.hintText, Key? key})
-      : super(key: key);
+  const CustomTextField({
+    required this.textEditingController,
+    required this.hintText,
+    Key? key, this.validator,
+  }) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -51,12 +54,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           borderRadius: BorderRadius.circular(25.0),
         ),
       ),
-      validator: (val) {
-        if (val!.isEmpty) {
-          return 'Email is cannot be empty';
-        }
-        return null;
-      },
+      validator: widget.validator,
     );
   }
 }

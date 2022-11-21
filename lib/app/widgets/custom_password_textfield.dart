@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class CustomPasswordTextField extends StatefulWidget {
   final String hintText;
   final TextEditingController textEditingController;
+  final String? Function(String?)? validator;
 
   const CustomPasswordTextField(
-      {required this.textEditingController, required this.hintText, Key? key})
+      {required this.textEditingController,
+      required this.hintText,
+      Key? key,
+      required this.validator})
       : super(key: key);
 
   @override
@@ -64,12 +68,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
           ),
         ),
       ),
-      validator: (val) {
-        if (val!.isEmpty) {
-          return 'Required password';
-        }
-        return null;
-      },
+      validator: widget.validator,
     );
   }
 }

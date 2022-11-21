@@ -14,12 +14,19 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     emailEC.dispose();
     passwordEC.dispose();
     super.dispose();
+  }
+
+  login() {
+    if (_formKey.currentState!.validate()) {
+      print('Login sucefull');
+    }
   }
 
   @override
@@ -76,64 +83,88 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     //Second column
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .38,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: CustomTextField(
+                    Form(
+                      key: _formKey,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * .38,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: CustomTextField(
                                 textEditingController: emailEC,
-                                hintText: 'Username'),
-                          ),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            child: CustomPasswordTextField(
-                                textEditingController: passwordEC,
-                                hintText: 'Password'),
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * .01),
-                          CustomButton(
-                            text: 'Login',
-                            onPressed: () {},
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * .01),
-                          InkWell(
-                            onTap: () {},
-                            child: const Text(
-                              'Create account \n or',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black87,
-                                letterSpacing: -0.5,
+                                hintText: 'Username',
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some username';
+                                  } else if (value.length < 6) {
+                                    return 'The minimum required is 6';
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * .01),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.facebook,
-                                size: 35,
-                                color: Colors.blue.shade800,
+                            const SizedBox(height: 10),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              child: CustomPasswordTextField(
+                                textEditingController: passwordEC,
+                                hintText: 'Password',
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Password is required';
+                                  } else if (value.length < 6) {
+                                    return 'The minimum password size is 6';
+                                  }
+                                  return null;
+                                },
                               ),
-                              const SizedBox(width: 10),
-                              Icon(
-                                Icons.facebook,
-                                size: 35,
-                                color: Colors.blue.shade800,
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * .01),
+                            CustomButton(
+                              text: 'Login',
+                              onPressed: login,
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * .01),
+                            InkWell(
+                              onTap: () {},
+                              child: const Text(
+                                'Create account \n or',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  letterSpacing: -0.5,
+                                ),
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * .01),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.facebook,
+                                  size: 35,
+                                  color: Colors.blue.shade800,
+                                ),
+                                const SizedBox(width: 10),
+                                Icon(
+                                  Icons.facebook,
+                                  size: 35,
+                                  color: Colors.blue.shade800,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
