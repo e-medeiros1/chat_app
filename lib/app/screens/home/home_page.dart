@@ -9,6 +9,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final chatEC = TextEditingController();
+
+  sendMessage() {
+    print('Message: ${chatEC.text}');
+    cleanField();
+  }
+
+  cleanField() {
+    chatEC.text = '';
+  }
+
+  @override
+  void dispose() {
+    chatEC.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -55,10 +72,11 @@ class _HomePageState extends State<HomePage> {
           bottomNavigationBar: BottomAppBar(
             child: Container(
               height: 60,
+              width: double.infinity,
               decoration: const BoxDecoration(
-                color: Colors.black,
+                color: Colors.black87,
                 borderRadius: BorderRadius.only(
-                  // topLeft: Radius.circular(25),
+                  topLeft: Radius.circular(25),
                   topRight: Radius.circular(25),
                 ),
               ),
@@ -72,8 +90,27 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                   ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                      child: TextField(
+                    controller: chatEC,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 5,
+                    cursorColor: Colors.white,
+                    textCapitalization: TextCapitalization.sentences,
+                    style: const TextStyle(
+                        color: Colors.white, fontSize: 19, letterSpacing: -.5),
+                    decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Type your message...',
+                        hintStyle: TextStyle(
+                          color: Colors.blueGrey,
+                        )),
+                  )),
+                  const SizedBox(width: 10),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: sendMessage,
                     icon: const Icon(
                       Icons.send_outlined,
                       color: Colors.white,
