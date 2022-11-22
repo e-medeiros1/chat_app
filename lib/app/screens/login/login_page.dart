@@ -1,5 +1,6 @@
 import 'package:chat_app/app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_buttons/social_media_button.dart';
 
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_password_textfield.dart';
@@ -102,9 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                                 hintText: 'Username',
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter some username';
+                                    return 'Please type your username';
                                   } else if (value.length < 6) {
-                                    return 'The minimum required is 6';
+                                    return 'Your username should be more than 6 characters';
                                   }
                                   return null;
                                 },
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                   if (value == null || value.isEmpty) {
                                     return 'Password is required';
                                   } else if (value.length < 6) {
-                                    return 'The minimum password size is 6';
+                                    return 'Your password should be more than 6 characters';
                                   }
                                   return null;
                                 },
@@ -137,33 +138,26 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * .01),
-                            InkWell(
-                              onTap: () {},
-                              child: const Text(
-                                'Create account \n or',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  letterSpacing: -0.5,
-                                ),
+                            const Text(
+                              'Made by Medeiros \n find me on:',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black87,
+                                letterSpacing: -0.5,
                               ),
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * .01),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.facebook,
-                                  size: 35,
-                                  color: Colors.blue.shade800,
+                                const SocialMediaButton.github(
+                                  url: 'https://github.com/e-medeiros1',
+                                  size: 30,
                                 ),
-                                const SizedBox(width: 10),
-                                Icon(
-                                  Icons.facebook,
-                                  size: 35,
+                                SocialMediaButton.linkedin(
+                                  url:
+                                      'https://www.linkedin.com/in/erimedeiros/',
                                   color: Colors.blue.shade800,
+                                  size: 30,
                                 ),
                               ],
                             ),
