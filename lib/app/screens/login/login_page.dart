@@ -1,3 +1,4 @@
+import 'package:chat_app/app/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/custom_button.dart';
@@ -12,20 +13,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailEC = TextEditingController();
+  final usernameEC = TextEditingController();
   final passwordEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    emailEC.dispose();
+    usernameEC.dispose();
     passwordEC.dispose();
     super.dispose();
   }
 
   login() {
-    if (_formKey.currentState!.validate()) {
-      print('Login sucefull');
+    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+      print('Login sucessfull');
+      Navigator.pushReplacementNamed(context, NamedRoutes.CHAT_PAGE,
+          arguments: usernameEC.text);
     }
   }
 
@@ -72,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height * .02),
+                              height:
+                                  MediaQuery.of(context).size.height * .015),
                           Image.asset(
                             alignment: Alignment.center,
                             'assets/images/7.png',
@@ -94,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12.0),
                               child: CustomTextField(
-                                textEditingController: emailEC,
+                                textEditingController: usernameEC,
                                 hintText: 'Username',
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {

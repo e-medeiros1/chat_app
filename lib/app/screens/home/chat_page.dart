@@ -1,14 +1,15 @@
+import 'package:chat_app/app/utils/routes.dart';
 import 'package:chat_app/app/widgets/custom_chat_bubble.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ChatPageState extends State<ChatPage> {
   final chatEC = TextEditingController();
 
   sendMessage() {
@@ -28,27 +29,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final username = ModalRoute.of(context)!.settings.arguments as String;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            iconTheme: const IconThemeData(color: Colors.black54),
             titleTextStyle: const TextStyle(
               color: Colors.black87,
               letterSpacing: -0.5,
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
-            title: const Text(
-              'Hi, Username!',
+            title: Text(
+              'Hi, $username!',
             ),
             centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed(NamedRoutes.LOGIN_PAGE);
+                },
                 icon: const Icon(Icons.output_outlined),
               ),
             ],
