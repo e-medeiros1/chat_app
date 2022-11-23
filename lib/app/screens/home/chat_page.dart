@@ -1,3 +1,4 @@
+import 'package:chat_app/app/models/chat_message_entity.dart';
 import 'package:chat_app/app/utils/routes.dart';
 import 'package:chat_app/app/widgets/custom_chat_bubble.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,8 @@ class _ChatPageState extends State<ChatPage> {
             actions: [
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(NamedRoutes.LOGIN_PAGE);
+                  Navigator.of(context)
+                      .pushReplacementNamed(NamedRoutes.LOGIN_PAGE);
                 },
                 icon: const Icon(Icons.output_outlined),
               ),
@@ -64,7 +66,7 @@ class _ChatPageState extends State<ChatPage> {
                         align: index % 2 == 0
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
-                        message: 'This is my first message!');
+                        entity: ChatMessageEntity(text: 'Hello!', timeStamp: DateTime.now().millisecondsSinceEpoch, id: '123', author: Author(username: username)));
                   },
                 ),
               ),

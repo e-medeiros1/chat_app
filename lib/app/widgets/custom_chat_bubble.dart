@@ -1,13 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import '../models/chat_message_entity.dart';
+
 class CustomChatBubble extends StatelessWidget {
+  final ChatMessageEntity entity;
   final AlignmentGeometry align;
-  final String message;
+
   const CustomChatBubble({
     Key? key,
     required this.align,
-    required this.message,
+    required this.entity,
   }) : super(key: key);
 
   @override
@@ -31,15 +34,16 @@ class CustomChatBubble extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                message,
+                entity.text,
                 style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
-            Image.asset(
-              'assets/images/7.png',
-              height: 200,
-              fit: BoxFit.cover,
-            ),
+            if (entity.imageUrl != null)
+              Image.asset(
+                entity.imageUrl!,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
           ],
         ),
       ),
