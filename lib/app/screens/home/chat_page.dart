@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:chat_app/app/models/chat_message_entity.dart';
 import 'package:chat_app/app/utils/routes.dart';
 import 'package:chat_app/app/widgets/custom_chat_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -12,9 +15,18 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final chatEC = TextEditingController();
+  List<ChatMessageEntity> _messages = [];
 
   sendMessage() {
-    print('Message: ${chatEC.text}');
+    final newMessage = ChatMessageEntity(
+      text: chatEC.text,
+      id: '123',
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      author: Author(username: 'Medeiros'),
+    );
+    setState(() {
+      _messages.add(newMessage);
+    });
     cleanField();
   }
 
@@ -28,9 +40,31 @@ class _ChatPageState extends State<ChatPage> {
     super.dispose();
   }
 
+  _loadInitialMessages() async {
+    final response =
+        await rootBundle.loadString('assets/chat_messages_mock.json');
+
+    final List<dynamic> decodedList = jsonDecode(response) as List;
+
+    final List<ChatMessageEntity> chatMessages = decodedList.map((listItem) {
+      return ChatMessageEntity.fromJson(listItem);
+    }).toList();
+
+    setState(() {
+      _messages = chatMessages;
+    });
+  }
+
+  @override
+  void initState() {
+    _loadInitialMessages();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final username = ModalRoute.of(context)!.settings.arguments as String;
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SafeArea(
@@ -60,13 +94,13 @@ class _ChatPageState extends State<ChatPage> {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: _messages.length,
                   itemBuilder: (context, index) {
                     return CustomChatBubble(
-                        align: index % 2 == 0
+                        align: _messages[index].author.username == 'Medeiros'
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
-                        entity: ChatMessageEntity(text: 'Hello!', timeStamp: DateTime.now().millisecondsSinceEpoch, id: '123', author: Author(username: username)));
+                        entity: _messages[index]);
                   },
                 ),
               ),
