@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'app/screens/home/chat_page.dart';
 import 'app/screens/login/login_page.dart';
 import 'app/utils/routes.dart';
+import 'app/widgets/custom_gridview_images.dart';
 
 void main(List<String> args) {
   runApp(
@@ -20,11 +21,12 @@ void main(List<String> args) {
         ),
       ),
       title: 'Chat app',
-      initialRoute: NamedRoutes.LOGIN_PAGE,
-      routes: {
-        NamedRoutes.LOGIN_PAGE: (_) => const LoginPage(),
-        NamedRoutes.CHAT_PAGE: (_) => const ChatPage(),
-      },
+      home: CustomGridviewImages(),
+      // initialRoute: NamedRoutes.LOGIN_PAGE,
+      // routes: {
+      //   NamedRoutes.LOGIN_PAGE: (_) => const LoginPage(),
+      //   NamedRoutes.CHAT_PAGE: (_) => const ChatPage(),
+      // },
     ),
   );
 }
