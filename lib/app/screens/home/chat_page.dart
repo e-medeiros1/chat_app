@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:chat_app/app/models/chat_message_entity.dart';
 import 'package:chat_app/app/utils/routes.dart';
 import 'package:chat_app/app/widgets/custom_chat_bubble.dart';
+import 'package:chat_app/app/widgets/custom_gridview_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../widgets/custom_gridview_giphy.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -121,7 +124,18 @@ class _ChatPageState extends State<ChatPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        backgroundColor: Colors.white,
+                        context: context,
+                        builder: (context) {
+                          return CustomGridviewGiphy();
+                        },
+                      );
+                    },
                     icon: const Icon(
                       Icons.add_circle_outline,
                       color: Colors.white,
