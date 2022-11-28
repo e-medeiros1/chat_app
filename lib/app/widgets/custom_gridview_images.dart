@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:chat_app/app/repository/image_repository.dart';
 
+// ignore: must_be_immutable
 class CustomGridviewImages extends StatelessWidget {
   Function(String) onImageSelected;
   CustomGridviewImages({

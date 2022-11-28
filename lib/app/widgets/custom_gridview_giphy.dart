@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../repository/giphy_repository.dart';
 
+// ignore: must_be_immutable
 class CustomGridviewGiphy extends StatelessWidget {
   Function(String) onImageSelected;
   CustomGridviewGiphy({

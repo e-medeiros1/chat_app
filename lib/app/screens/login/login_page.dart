@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
 
   login() {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-      print('Login sucessfull');
       Navigator.pushReplacementNamed(context, NamedRoutes.CHAT_PAGE,
           arguments: usernameEC.text);
     }
