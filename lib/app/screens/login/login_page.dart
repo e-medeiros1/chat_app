@@ -77,6 +77,14 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * .015),
+                          Container(
+                            height: MediaQuery.of(context).size.height * .4,
+                            decoration: BoxDecoration(
+                                image: const DecorationImage(
+                                    image: AssetImage('assets/images/7.png'),
+                                    fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(12)),
+                          ),
                           Image.asset(
                             alignment: Alignment.center,
                             'assets/images/7.png',

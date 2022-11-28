@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
-
 import 'package:chat_app/app/repository/image_repository.dart';
+import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class CustomGridviewImages extends StatelessWidget {
@@ -24,6 +23,14 @@ class CustomGridviewImages extends StatelessWidget {
               color: Colors.black87,
             ),
           );
+        } else if (snapshot.hasError) {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Error! ${snapshot.error}',
+              style: const TextStyle(color: Colors.black87, fontSize: 17),
+            ),
+          );
         } else {
           return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -35,7 +42,6 @@ class CustomGridviewImages extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         onImageSelected(snapshot.data![index].urlFullSize);
-                       
                       },
                       child: Image.network(
                         snapshot.data![index].urlFullSize,

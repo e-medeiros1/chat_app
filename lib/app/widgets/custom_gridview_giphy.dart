@@ -25,6 +25,14 @@ class CustomGridviewGiphy extends StatelessWidget {
                 color: Colors.black87,
               ),
             );
+          } else if (snapshot.hasError) {
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                'Error! ${snapshot.error}',
+                style: const TextStyle(color: Colors.black87, fontSize: 17),
+              ),
+            );
           } else {
             return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -37,7 +45,6 @@ class CustomGridviewGiphy extends StatelessWidget {
                         onTap: () {
                           onImageSelected(snapshot.data!['data'][index]
                               ['images']['fixed_height']['url']);
-                          
                         },
                         child: Image.network(
                           snapshot.data!['data'][index]['images']
