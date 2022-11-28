@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
@@ -13,8 +14,14 @@ class GiphyRepository {
       var responseData = json.decode(response.body);
 
       return responseData;
+    } on SocketException {
+      throw Exception('No internet connection');
+    } on HttpException {
+      throw Exception('Cound\'t retrieve the medias');
+    } on FormatException {
+      throw Exception('Bad response format');
     } catch (e) {
-      log('API is not working properly');
+      log('API is not working properly', error: e);
       throw Exception('API is not working properly');
     }
   }
