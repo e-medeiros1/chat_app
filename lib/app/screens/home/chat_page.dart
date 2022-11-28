@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:chat_app/app/models/chat_message_entity.dart';
+import 'package:chat_app/app/services/auth_service.dart';
 import 'package:chat_app/app/utils/routes.dart';
 import 'package:chat_app/app/widgets/custom_chat_bubble.dart';
 import 'package:chat_app/app/widgets/custom_gridview_giphy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:provider/provider.dart';
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -53,7 +54,7 @@ class _ChatPageState extends State<ChatPage> {
       text: chatEC.text,
       id: '123',
       createdAt: DateTime.now().millisecondsSinceEpoch,
-      author: Author(username: 'Medeiros'),
+      author: Author(username: context.read<AuthService>().getUsername()),
     );
 
     if (_selectedImageUrl.isNotEmpty) {
@@ -112,7 +113,7 @@ class _ChatPageState extends State<ChatPage> {
                   itemCount: _messages.length,
                   itemBuilder: (context, index) {
                     return CustomChatBubble(
-                        align: _messages[index].author.username == 'Medeiros'
+                        align: _messages[index].author.username == context.read<AuthService>().getUsername()
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
                         entity: _messages[index]);

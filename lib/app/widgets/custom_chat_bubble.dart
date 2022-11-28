@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/chat_message_entity.dart';
+import '../services/auth_service.dart';
 
 class CustomChatBubble extends StatelessWidget {
   final ChatMessageEntity entity;
@@ -15,7 +17,8 @@ class CustomChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAuthor = entity.author.username == 'Medeiros';
+    bool isAuthor =
+        entity.author.username == context.read<AuthService>().getUsername();
     return Align(
       alignment: align,
       child: Container(
