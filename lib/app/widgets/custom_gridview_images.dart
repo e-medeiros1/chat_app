@@ -1,8 +1,14 @@
-import 'package:chat_app/app/repository/image_repository.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
+import 'package:chat_app/app/repository/image_repository.dart';
+
 class CustomGridviewImages extends StatelessWidget {
-  CustomGridviewImages({super.key});
+  Function(String) onImageSelected;
+  CustomGridviewImages({
+    Key? key,
+    required this.onImageSelected,
+  }) : super(key: key);
 
   final ImageRepository _imageRepository = ImageRepository();
 
@@ -25,9 +31,15 @@ class CustomGridviewImages extends StatelessWidget {
               itemCount: snapshot.data?.length,
               itemBuilder: (ctx, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.network(
-                      snapshot.data![index].urlFullSize,
-                      fit: BoxFit.cover,
+                    child: GestureDetector(
+                      onTap: () {
+                        onImageSelected(snapshot.data![index].urlFullSize);
+                       
+                      },
+                      child: Image.network(
+                        snapshot.data![index].urlFullSize,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ));
         }
