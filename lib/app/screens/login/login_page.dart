@@ -1,5 +1,7 @@
+import 'package:chat_app/app/services/auth_service.dart';
 import 'package:chat_app/app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media_buttons/social_media_button.dart';
 
 import '../../widgets/custom_button.dart';
@@ -25,8 +27,10 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  login() {
+  Future<void> login() async {
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+      await context.read<AuthService>().userLogin(usernameEC.text);
+
       Navigator.pushReplacementNamed(context, NamedRoutes.CHAT_PAGE,
           arguments: usernameEC.text);
     }
@@ -132,7 +136,9 @@ class _LoginPageState extends State<LoginPage> {
                                     MediaQuery.of(context).size.height * .01),
                             CustomButton(
                               text: 'Login',
-                              onPressed: login,
+                              onPressed: () async {
+                                return login();
+                              },
                             ),
                             SizedBox(
                                 height:
