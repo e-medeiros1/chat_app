@@ -38,6 +38,7 @@ class CustomChatBubble extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 10),
             if (entity.imageUrl != null)
               Container(
                 height: 200,

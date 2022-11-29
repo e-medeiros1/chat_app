@@ -8,6 +8,7 @@ import 'package:chat_app/app/widgets/custom_gridview_giphy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -49,12 +50,13 @@ class _ChatPageState extends State<ChatPage> {
   }
 
 //Send messages
-  sendMessage() {
+  sendMessage() async {
+    String? cachedUsername = context.read<AuthService>().getUsername();
     final newMessage = ChatMessageEntity(
       text: chatEC.text,
       id: '123',
       createdAt: DateTime.now().millisecondsSinceEpoch,
-      author: Author(username: context.read<AuthService>().getUsername()),
+      author: Author(username: cachedUsername!),
     );
 
     if (_selectedImageUrl.isNotEmpty) {
@@ -79,7 +81,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final username = ModalRoute.of(context)!.settings.arguments as String;
+    final username = context.watch<AuthService>().getUsername();
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -99,6 +101,13 @@ class _ChatPageState extends State<ChatPage> {
             actions: [
               IconButton(
                 onPressed: () {
+                  context.read<AuthService>().updateUsername('Eri Medeiros');
+                },
+                icon: const Icon(Icons.play_arrow),
+              ),
+              IconButton(
+                onPressed: () {
+                  context.read<AuthService>().userLogout();
                   Navigator.of(context)
                       .pushReplacementNamed(NamedRoutes.LOGIN_PAGE);
                 },
@@ -113,10 +122,12 @@ class _ChatPageState extends State<ChatPage> {
                   itemCount: _messages.length,
                   itemBuilder: (context, index) {
                     return CustomChatBubble(
-                        align: _messages[index].author.username == context.read<AuthService>().getUsername()
-                            ? Alignment.centerRight
-                            : Alignment.centerLeft,
-                        entity: _messages[index]);
+                      align: _messages[index].author.username ==
+                              context.read<AuthService>().getUsername()
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      entity: _messages[index],
+                    );
                   },
                 ),
               ),
