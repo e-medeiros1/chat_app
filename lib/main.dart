@@ -6,9 +6,11 @@ import 'app/screens/home/chat_page.dart';
 import 'app/screens/login/login_page.dart';
 import 'app/utils/routes.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthService.init();
   runApp(
-    Provider(
+    ChangeNotifierProvider(
       create: (context) => AuthService(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
