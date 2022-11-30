@@ -1,9 +1,10 @@
+import 'package:chat_app/app/screens/home/chat_page.dart';
+import 'package:chat_app/app/screens/login/login_page.dart';
+import 'package:chat_app/app/services/auth_check.dart';
 import 'package:chat_app/app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'app/screens/home/chat_page.dart';
-import 'app/screens/login/login_page.dart';
 import 'app/utils/routes.dart';
 
 void main(List<String> args) async {
@@ -26,9 +27,9 @@ void main(List<String> args) async {
           ),
         ),
         title: 'Chat app',
-        // home: CustomGridviewGiphy(),
-        initialRoute: NamedRoutes.LOGIN_PAGE,
+        initialRoute: NamedRoutes.AUTH_CHECK,
         routes: {
+          NamedRoutes.AUTH_CHECK: (_) => const AuthCheck(),
           NamedRoutes.LOGIN_PAGE: (_) => const LoginPage(),
           NamedRoutes.CHAT_PAGE: (_) => const ChatPage(),
         },

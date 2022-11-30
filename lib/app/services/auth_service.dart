@@ -28,6 +28,12 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  Future<bool> isLogged() async {
+    String? username = _prefs.getString('username');
+    if (username == null) return false;
+    return true;
+  }
+
   String? getUsername() {
     return _prefs.getString('username') ?? 'Default value';
   }
