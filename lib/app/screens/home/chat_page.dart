@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:chat_app/app/models/chat_message_entity.dart';
 import 'package:chat_app/app/services/auth_service.dart';
-import 'package:chat_app/app/utils/routes.dart';
 import 'package:chat_app/app/widgets/custom_chat_bubble.dart';
 import 'package:chat_app/app/widgets/custom_gridview_giphy.dart';
+import 'package:chat_app/app/widgets/custom_gridview_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import '../../utils/routes.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -71,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {});
   }
 
-//Pick images
+//Pick images or gifs
   void onImagePicked(String newImageUrl) {
     setState(() {
       _selectedImageUrl = newImageUrl;
@@ -88,6 +90,7 @@ class _ChatPageState extends State<ChatPage> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             titleTextStyle: const TextStyle(
               color: Colors.black87,
               letterSpacing: -0.5,
@@ -100,19 +103,34 @@ class _ChatPageState extends State<ChatPage> {
             centerTitle: true,
             actions: [
               IconButton(
-                onPressed: () {
-                  context.read<AuthService>().updateUsername('Eri Medeiros');
-                },
-                icon: const Icon(Icons.play_arrow),
-              ),
-              IconButton(
-                onPressed: () {
-                  context.read<AuthService>().userLogout();
-                  Navigator.of(context)
-                      .pushReplacementNamed(NamedRoutes.LOGIN_PAGE);
-                },
-                icon: const Icon(Icons.output_outlined),
-              ),
+                  onPressed: () {
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      backgroundColor: Colors.white,
+                      context: context,
+                      builder: (context) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.login),
+                              title: const Text('Logout'),
+                              onTap: () {
+                                context.read<AuthService>().userLogout();
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                  NamedRoutes.LOGIN_PAGE,
+                                  (route) => false,
+                                );
+                              },
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.info_outline))
             ],
           ),
           body: Column(
@@ -151,8 +169,36 @@ class _ChatPageState extends State<ChatPage> {
                           backgroundColor: Colors.white,
                           context: context,
                           builder: (context) {
-                            return CustomGridviewGiphy(
-                              onImageSelected: onImagePicked,
+                            return DefaultTabController(
+                              length: 2,
+                              initialIndex: 0,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  const TabBar(
+                                    labelColor: Colors.black87,
+                                    indicatorColor: Colors.black54,
+                                    tabs: [
+                                      Tab(
+                                        icon: Icon(Icons.photo),
+                                      ),
+                                      Tab(
+                                        icon: Icon(Icons.gif),
+                                      )
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: TabBarView(
+                                      children: [
+                                        CustomGridviewImages(
+                                            onImageSelected: onImagePicked),
+                                        CustomGridviewGiphy(
+                                            onImageSelected: onImagePicked),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             );
                           },
                         );
