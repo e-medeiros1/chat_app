@@ -20,20 +20,20 @@
 
 <h2> Telas </h2>  
 <p> Login page </p> 
-<img src="![Screenshot_1669947523](https://user-images.githubusercontent.com/73318684/205200884-5b0a3ad5-5a8a-48aa-93d3-cd4107b118e6.png)
-" width="250" alt="Logo SplashPage"/>   
+<img src="https://user-images.githubusercontent.com/73318684/205200884-5b0a3ad5-5a8a-48aa-93d3-cd4107b118e6.png
+" width="250" alt="Login"/>   
 
 <p> Chat page </p>     
-<img src="![Screenshot_1669947530](https://user-images.githubusercontent.com/73318684/205200913-5aa10dbe-ce21-4644-89a9-beb8c4d5bf4d.png)
-" width="250" alt="Logo TaskPage"/> 
+<img src="https://user-images.githubusercontent.com/73318684/205200913-5aa10dbe-ce21-4644-89a9-beb8c4d5bf4d.png
+" width="250" alt="ChatPage"/> 
 
 
-<img src="![Screenshot_1669947572](https://user-images.githubusercontent.com/73318684/205200936-56780827-711e-483d-8e61-365808f81cd4.png)
-" width="250" alt="Logo TaskPage"/> 
+<img src="https://user-images.githubusercontent.com/73318684/205200936-56780827-711e-483d-8e61-365808f81cd4.png
+" width="250" alt="ChatPage"/> 
 
 
-<img src="![Screenshot_1669947613](https://user-images.githubusercontent.com/73318684/205200957-bf3548e0-a5b7-45c1-a05e-9e0823afbcd4.png)
-" width="250" alt="Logo TaskPage"/> 
+<img src="https://user-images.githubusercontent.com/73318684/205200957-bf3548e0-a5b7-45c1-a05e-9e0823afbcd4.png
+" width="250" alt="ChatPage"/> 
 
 
 
