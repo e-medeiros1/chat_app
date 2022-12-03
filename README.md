@@ -8,7 +8,7 @@
 
 <h2> About </h2>
 <p >
-  using Provider to state management, sharedPreferences to persist data, consuming mocked json for messages and consuming a couple of API's for pictures and gifs
+  using Provider as state management, sharedPreferences to persist data, consuming mocked json for messages and consuming a couple of API's for pictures and gifs
 </p>  
 
 ### Funcionalities
